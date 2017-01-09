@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Git view";
+}
+
+<body data-ng-app="GitApiModule">
+    <div id="tblSubs" ng-controller="GitAPIController">
+        <div class="container">
+            <div class="row">
+                <h2>Git Info by User</h2>
+                <div id="custom-search-input">
+                    <div class="input-group col-md-3">
+                        <input type="text" class=" search-query form-control" placeholder="Git User Name" ng-model="searchString" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-danger" type="button" data-ng-click="getUsers(searchString)">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <h3>User Info</h3>
+
+
+                    <table class="table table-striped">
+                        <tr>
+                            <th>User Name</th>
+                            <th>Location</th>
+                            <th>Avatar</th>
+                        </tr>
+                        <tr>
+                            <td>{{userName}}</td>
+                            <td>{{location}}</td>
+                            <td><img ng-src="{{avatar}}" width="50" height="50" /></td>
+                        </tr>
+                    </table>
+
+                    <br />
+                    <h3>Repository Info</h3>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Repo id</th>
+                            <th>Stargazer count</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr ng-repeat="repo in repos | orderBy: '-stargazers_count'| limitTo:5">
+                            <td>{{repo.id}}</td>
+                            <td>{{repo.stargazers_count}}</td>
+                            <td>{{repo.description}}</td>
+                        </tr>
+                    </table>
+
+                    <h3>User Info Response</h3>
+                    <pre>{{userInfo}}</pre>
+                    <br />
+                    <h3>User Repos Response</h3>
+                    <pre>{{repositories}}</pre>
+
+</div>
+        </div>
+    </div>
+</body>
+
+
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/angular-route.js"></script>
+<script src="~/Scripts/Content/Module.js"></script>
+<script src="~/Scripts/Content/GitHub/Service.js"></script>
+<script src="~/Scripts/Content/GitHub/Controller.js"></script>
+<link href="~/Content/github.css" rel="stylesheet" />
